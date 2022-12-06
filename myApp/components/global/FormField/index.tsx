@@ -3,7 +3,11 @@ import { IFormField } from '@/GlobalComponents/FormField/interface'
 import { useFormContext } from 'react-hook-form'
 import clsx from 'clsx'
 
-export const FormField: FC<IFormField> = ({ name, placeholder }) => {
+export const FormField: FC<IFormField> = ({
+	name,
+	placeholder,
+	defaultValue = ''
+}) => {
 	const {
 		register,
 		formState: { errors }
@@ -15,6 +19,7 @@ export const FormField: FC<IFormField> = ({ name, placeholder }) => {
 			<input
 				{...register(name)}
 				placeholder={placeholder}
+				defaultValue={defaultValue}
 				type="text"
 				className={clsx('input input-bordered input-sm w-full max-w-xs', {
 					['input-primary']: !Boolean(errors[name]?.message),

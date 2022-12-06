@@ -12,3 +12,16 @@ export interface IPost extends IBase {
 	userId: number
 	author: IUser
 }
+
+export interface IPostDto {
+	title: string
+	miniText: string
+	image: string
+	description: string
+	secondImage: string
+	content: string
+}
+
+export interface IUpdatePostDto extends IPostDto {
+	id: number
+}

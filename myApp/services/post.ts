@@ -15,5 +15,10 @@ export const PostService = {
 	async getOne(id: number) {
 		const { data } = await axiosBuffed.get<IPost>(`/post/${id}`)
 		return data
+	},
+
+	async getOneWithoutViews(id: number) {
+		const { data } = await axiosBuffed.get<IPost>(`/post/get-one/${id}`)
+		return data
 	}
 }

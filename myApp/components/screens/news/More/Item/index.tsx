@@ -1,10 +1,12 @@
 import { FC } from 'react'
 import Image from 'next/image'
 import { IPost } from '@/types/post/interface'
+import Link from 'next/link'
 
 export const MoreNewsItem: FC<{ post: IPost }> = ({ post }) => {
 	return (
-		<div
+		<Link
+			href={`/news/${post.id}`}
 			className={
 				'w-[1000px] h-[400px] rounded-xl bg-[#151515] hover:cursor-pointer'
 			}
@@ -19,6 +21,6 @@ export const MoreNewsItem: FC<{ post: IPost }> = ({ post }) => {
 				<h1 className={'font-bold'}>{post.title}</h1>
 				<p>{post.views}</p>
 			</div>
-		</div>
+		</Link>
 	)
 }

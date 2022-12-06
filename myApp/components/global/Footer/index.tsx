@@ -5,9 +5,7 @@ import Image from 'next/image'
 export const Footer: FC = () => {
 	return (
 		<footer
-			className={
-				'navbar absolute left-0 bottom-0 h-20 bg-black w-full py-2 px-8'
-			}
+			className={'navbar left-0 bottom-0 h-20 bg-black w-full py-2 px-8'}
 		>
 			<div className={'navbar-start flex space-x-7'}>
 				<a href="">

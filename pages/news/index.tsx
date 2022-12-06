@@ -11,6 +11,15 @@ export const getStaticProps: GetStaticProps = async () => {
 	try {
 		const popularPosts = await PostService.getPopular()
 
+		if (!popularPosts.length) {
+			return {
+				redirect: {
+					destination: '/'
+				},
+				props: {}
+			}
+		}
+
 		return {
 			props: {
 				posts: popularPosts

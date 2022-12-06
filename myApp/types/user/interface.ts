@@ -3,6 +3,7 @@ import { IRoles } from '@/types/roles/interface'
 import { IPost } from '@/types/post/interface'
 
 export interface IUser extends IBase {
+	avatar: string
 	userName: string
 	email: string
 	steam: string

@@ -15,9 +15,16 @@ export const RegisterSchema = yup
 		userName: yup
 			.string()
 			.min(3, 'Min letter count is 3')
-			.required('Write user name'),
+			.required('Write user name')
+	})
+	.concat(LoginSchema)
+	.required()
+
+export const UpdateProfileSchema = yup
+	.object({
+		userName: yup.string().min(3, 'Min letter count is 3'),
+		email: yup.string().email('Incorrect email'),
 		discord: yup.string(),
 		steam: yup.string()
 	})
-	.concat(LoginSchema)
 	.required()

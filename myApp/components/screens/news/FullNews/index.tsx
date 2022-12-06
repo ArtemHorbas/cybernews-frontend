@@ -1,13 +1,27 @@
 import { FC } from 'react'
 import { MainLayout } from '@/layouts/main'
 import Image from 'next/image'
-import { IPost } from '@/types/post/interface'
+import { IFullNews } from '@/ScreensComponents/news/FullNews/interface'
+import { api } from '@/store/api/api'
+import { useRouter } from 'next/router'
+import { useCheckAccess } from '@/hooks/useCheckAccess'
+import Link from 'next/link'
 
-export const FullNewsScreen: FC<{ post: IPost }> = ({ post }) => {
+export const FullNewsScreen: FC<IFullNews> = ({ post }) => {
+	const { push } = useRouter()
+
+	const [removePost] = api.useRemovePostMutation()
+
+	const onDelete = async () => {
+		removePost(post.id)
+			.unwrap()
+			.then(() => push('/rating'))
+	}
+
 	return (
 		<MainLayout title={`News: ${post.title}`} mainHeader>
 			<h1 className={'title'}>{post.title}</h1>
-			<div className={'flex flex-col items-center justify-center'}>
+			<div className={'relative flex flex-col items-center justify-center'}>
 				<Image
 					src={`http://localhost:3000${post.image}`}
 					alt={'Main Image'}
@@ -26,7 +40,18 @@ export const FullNewsScreen: FC<{ post: IPost }> = ({ post }) => {
 						width={200}
 						height={50}
 					/>
-					<p className={'mt-8'}>{post.content}</p>
+					<p className={'my-8'}>{post.content}</p>
+					<Link href={`/user/${post.userId}`}>
+						Author: {post.author.userName} {post.author.email}
+					</Link>
+					{useCheckAccess() && (
+						<button
+							onClick={onDelete}
+							className={'btn btn-primary absolute left-2 bottom-2'}
+						>
+							Delete
+						</button>
+					)}
 				</div>
 			</div>
 		</MainLayout>

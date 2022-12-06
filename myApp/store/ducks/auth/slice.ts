@@ -1,10 +1,11 @@
 import { IAuthInitialState } from '@/store/ducks/auth/interface'
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import {
 	fetchLogin,
 	fetchLogout,
 	fetchRegister
 } from '@/store/ducks/auth/actions'
+import { IUser } from '@/types/user/interface'
 
 const initialState: IAuthInitialState = {
 	user: null,
@@ -15,7 +16,11 @@ const initialState: IAuthInitialState = {
 export const authSlice = createSlice({
 	name: 'auth',
 	initialState,
-	reducers: {},
+	reducers: {
+		setData(state, { payload }: PayloadAction<IUser>) {
+			state.user = payload
+		}
+	},
 	extraReducers: builder => {
 		builder
 			.addCase(fetchRegister.pending, state => {

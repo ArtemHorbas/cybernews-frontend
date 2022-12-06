@@ -4,12 +4,12 @@ import { MainHeaderList } from '@/GlobalComponents/Header/cases/main/List'
 import { Logo } from '@/UIComponents/logo'
 import Link from 'next/link'
 import { useAuth } from '@/store/hooks/ducks/useAuth'
-import Image from 'next/image'
-import { useActions } from '@/store/hooks/useActions'
+import { Avatar } from '@/GlobalComponents/Avatar'
+import { useCheckAccess } from '@/hooks/useCheckAccess'
 
 export const MainHeader: FC<IMainHeader> = ({ ...headers }) => {
-	const { token } = useAuth()
-	const { fetchLogout } = useActions()
+	const { user, token } = useAuth()
+
 	return (
 		<>
 			<div className={'navbar-start'}>
@@ -20,21 +20,21 @@ export const MainHeader: FC<IMainHeader> = ({ ...headers }) => {
 			<div className={'navbar-center'}>
 				<MainHeaderList {...headers} />
 			</div>
-			<div className={'navbar-end flex space-x-4'}>
+			<div className={'navbar-end flex space-x-20'}>
+				{useCheckAccess() && (
+					<Link href={'/news/create'}>
+						<button className="btn btn-primary">Create News</button>
+					</Link>
+				)}
 				{token ? (
 					<Link href={'/cabinet'}>
-						<Image
-							src={'/SocIcons/CabinetLogo.svg'}
-							alt={'Inst'}
-							width={25}
-							height={25}
-						/>
+						<Avatar url={user?.avatar} />
 					</Link>
 				) : (
-					<>
+					<div className={'flex space-x-4'}>
 						<Link href={'/register'}>Sign Up</Link>
 						<Link href={'/login'}>Sign In</Link>
-					</>
+					</div>
 				)}
 			</div>
 		</>
