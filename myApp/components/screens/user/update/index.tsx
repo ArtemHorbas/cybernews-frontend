@@ -1,6 +1,6 @@
 import { FC } from 'react'
 import { FirstLayout } from '@/layouts/first'
-import { UpdateUserForm } from '@/ScreensComponents/updateUser/form'
+import { UpdateUserForm } from '@/ScreensComponents/user/update/form'
 import { useAuth } from '@/store/hooks/ducks/useAuth'
 
 export const UpdateProfileScreen: FC = () => {

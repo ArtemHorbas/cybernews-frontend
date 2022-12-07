@@ -4,7 +4,7 @@ import { FormProvider, useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { UpdateProfileSchema } from '@/utils/validations/auth'
 import { useAuth } from '@/store/hooks/ducks/useAuth'
-import { IUpdateUserForm } from '@/ScreensComponents/updateUser/form/interface'
+import { IUpdateUserForm } from '@/ScreensComponents/user/update/form/interface'
 import { UploadField } from '@/GlobalComponents/FormField/Upload'
 import { FormField } from '@/GlobalComponents/FormField'
 import clsx from 'clsx'
@@ -35,7 +35,7 @@ export const UpdateUserForm: FC<{ user: IUser }> = ({ user }) => {
 			await updateProfile(values)
 				.unwrap()
 				.then(res => setData(res))
-			await push('/cabinet')
+			await push('/user/cabinet')
 		} catch (e) {
 			toastError(e)
 		}

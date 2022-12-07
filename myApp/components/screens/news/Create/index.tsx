@@ -2,9 +2,9 @@ import { FC, useState } from 'react'
 import { FirstLayout } from '@/layouts/first'
 import { CreateNewsItem } from '@/ScreensComponents/news/Create/Item'
 import { UploadField } from '@/GlobalComponents/FormField/Upload'
-import { api } from '@/store/api/api'
 import { useRouter } from 'next/router'
 import { ICreateNews } from '@/ScreensComponents/news/Create/interface'
+import { postApi } from '@/store/api/post'
 
 export const CreateNewsScreen: FC<ICreateNews> = ({ post }) => {
 	const { push } = useRouter()
@@ -22,8 +22,8 @@ export const CreateNewsScreen: FC<ICreateNews> = ({ post }) => {
 	)
 	const [content, setContent] = useState<string>(post ? post.content : '')
 
-	const [createPost] = api.useCreatePostMutation()
-	const [updatePost] = api.useUpdatePostMutation()
+	const [createPost] = postApi.useCreatePostMutation()
+	const [updatePost] = postApi.useUpdatePostMutation()
 
 	const onSubmit = async () => {
 		const fields = {

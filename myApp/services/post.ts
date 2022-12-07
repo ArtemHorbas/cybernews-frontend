@@ -12,6 +12,11 @@ export const PostService = {
 		return data
 	},
 
+	async getByUser(id: number) {
+		const { data } = await axiosBuffed.get<IPost[]>(`/post/user/${id}`)
+		return data
+	},
+
 	async getOne(id: number) {
 		const { data } = await axiosBuffed.get<IPost>(`/post/${id}`)
 		return data

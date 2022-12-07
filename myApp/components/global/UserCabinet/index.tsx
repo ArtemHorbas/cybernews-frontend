@@ -4,15 +4,23 @@ import { Avatar } from '@/GlobalComponents/Avatar'
 import { useActions } from '@/store/hooks/useActions'
 import { useRouter } from 'next/router'
 import Link from 'next/link'
+import { api } from '@/store/api/api'
 
 export const UserCabinet: FC<IUserCabinet> = ({ data, isCabinet }) => {
 	const { push } = useRouter()
 
 	const { fetchLogout } = useActions()
+	const [removeUser] = api.useRemoveUserMutation()
 
 	const onLogout = async () => {
 		await fetchLogout()
 		await push('/news')
+	}
+
+	const onDelete = async () => {
+		await removeUser()
+			.unwrap()
+			.then(() => onLogout())
 	}
 
 	return (
@@ -49,9 +57,14 @@ export const UserCabinet: FC<IUserCabinet> = ({ data, isCabinet }) => {
 							</div>
 							<h4>{data.steam}</h4>
 							<h4>{data.discord}</h4>
+							{!!data.posts.length && (
+								<Link href={`/news/user/${data.id}`} className={'my-4'}>
+									<button className={'btn btn-secondary'}>POSTS</button>
+								</Link>
+							)}
 							{isCabinet && (
 								<>
-									<div className={'flex justify-center'}>
+									<div className={'flex justify-center my-4'}>
 										<button
 											onClick={onLogout}
 											className={'btn btn-primary'}
@@ -60,11 +73,19 @@ export const UserCabinet: FC<IUserCabinet> = ({ data, isCabinet }) => {
 										</button>
 									</div>
 									<div>
-										<Link href={`/updateProfile`}>
+										<Link href={`/user/update`} className={'my-4'}>
 											<button className={'btn btn-primary'}>
 												EDIT PROFILE
 											</button>
 										</Link>
+									</div>
+									<div className={'flex justify-center my-4'}>
+										<button
+											onClick={onDelete}
+											className={'btn btn-primary'}
+										>
+											Delete Account
+										</button>
 									</div>
 								</>
 							)}

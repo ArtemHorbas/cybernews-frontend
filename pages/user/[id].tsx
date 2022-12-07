@@ -35,6 +35,15 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 	try {
 		const user = await UserService.getOne(Number(params?.id))
 
+		if (!user) {
+			return {
+				redirect: {
+					destination: '/notFound/user'
+				},
+				props: {}
+			}
+		}
+
 		return {
 			props: {
 				user

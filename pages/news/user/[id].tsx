@@ -1,20 +1,18 @@
 import { GetStaticPaths, GetStaticProps, NextPage } from 'next'
-import { FullNewsScreen } from '@/ScreensComponents/news/FullNews'
-import { IFullNews } from '@/ScreensComponents/news/FullNews/interface'
 import { PostService } from '@/services/post'
 import { logError } from '@/utils/api/errorTreatment'
-import { IPost } from '@/types/post/interface'
+import { INewsPage } from '@/ScreensComponents/news/interface'
+import { UserNewsScreen } from '@/ScreensComponents/news/User'
+import { UserService } from '@/services/user'
 
-const FullNews: NextPage<IFullNews> = props => {
-	return <FullNewsScreen {...props} />
+const UserNews: NextPage<INewsPage> = props => {
+	return <UserNewsScreen {...props} />
 }
-
-export default FullNews
 
 export const getStaticPaths: GetStaticPaths = async () => {
 	try {
-		const posts = await PostService.getNewest()
-		const paths = posts.map(({ id }) => ({
+		const users = await UserService.getAll()
+		const paths = users.map(({ id }) => ({
 			params: {
 				id: id.toString()
 			}
@@ -35,19 +33,21 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
 	try {
-		const post = await PostService.getOne(Number(params?.id))
+		const posts = await PostService.getByUser(Number(params?.id))
 
 		return {
 			props: {
-				post
-			} as IFullNews
+				posts
+			} as INewsPage
 		}
 	} catch (e) {
 		logError(e)
 		return {
 			props: {
-				post: {} as IPost
-			} as IFullNews
+				posts: []
+			} as INewsPage
 		}
 	}
 }
+
+export default UserNews

@@ -2,20 +2,20 @@ import { FC } from 'react'
 import { MainLayout } from '@/layouts/main'
 import Image from 'next/image'
 import { IFullNews } from '@/ScreensComponents/news/FullNews/interface'
-import { api } from '@/store/api/api'
 import { useRouter } from 'next/router'
 import { useCheckAccess } from '@/hooks/useCheckAccess'
 import Link from 'next/link'
+import { postApi } from '@/store/api/post'
 
 export const FullNewsScreen: FC<IFullNews> = ({ post }) => {
 	const { push } = useRouter()
 
-	const [removePost] = api.useRemovePostMutation()
+	const [removePost] = postApi.useRemovePostMutation()
 
 	const onDelete = async () => {
 		removePost(post.id)
 			.unwrap()
-			.then(() => push('/rating'))
+			.then(() => push('/news'))
 	}
 
 	return (

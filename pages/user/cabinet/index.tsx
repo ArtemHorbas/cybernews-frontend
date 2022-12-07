@@ -1,5 +1,5 @@
 import { NextPage } from 'next'
-import { CabinetScreen } from '@/ScreensComponents/cabinet'
+import { CabinetScreen } from '@/ScreensComponents/user/cabinet'
 
 const Cabinet: NextPage = () => {
 	return <CabinetScreen />

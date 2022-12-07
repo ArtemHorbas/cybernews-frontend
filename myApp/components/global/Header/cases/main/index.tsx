@@ -27,7 +27,7 @@ export const MainHeader: FC<IMainHeader> = ({ ...headers }) => {
 					</Link>
 				)}
 				{token ? (
-					<Link href={'/cabinet'}>
+					<Link href={'/user/cabinet'}>
 						<Avatar url={user?.avatar} />
 					</Link>
 				) : (

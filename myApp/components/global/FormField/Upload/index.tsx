@@ -1,7 +1,7 @@
 import { ChangeEvent, FC, useRef } from 'react'
 import { IUploadFile } from '@/GlobalComponents/FormField/Upload/interface'
 import Image from 'next/image'
-import { api } from '@/store/api/api'
+import { mediaApi } from '@/store/api/media'
 
 export const UploadField: FC<IUploadFile> = ({
 	inputName,
@@ -11,7 +11,7 @@ export const UploadField: FC<IUploadFile> = ({
 }) => {
 	const ref = useRef<HTMLInputElement>(null)
 
-	const [uploadMedia] = api.useUploadMediaMutation()
+	const [uploadMedia] = mediaApi.useUploadMediaMutation()
 
 	const uploadFile = async (e: ChangeEvent<HTMLInputElement>) => {
 		const files = e.target.files
